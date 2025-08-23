@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleDetection": "auto",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "allowJs": true,
+    "lib": ["es2017", "esnext"],
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "baseUrl": "./",
+    "noEmit": true,
+    "paths": {
+      "@domain/*": ["src/domain/*"],
+      "@application/*": ["src/application/*"],
+    }
+  },
+  "include": ["src/**/*", "__tests__/**/*"],
+  "exclude": ["node_modules"]
+}

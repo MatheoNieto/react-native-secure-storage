@@ -1,0 +1,40 @@
+{
+  "name": "react-native-secure-storage",
+  "version": "1.0.0",
+   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+   "repository": {
+    "type": "git",
+    "url": "git@github.com:MatheoNieto/react-native-secure-storage.git"
+  },
+  "bugs": {
+    "type": "git",
+    "url": "git@github.com:MatheoNieto/react-native-secure-storage.git/issues"
+  },
+  "author": "Mateo Nieto <matheo.developer@gmail.com>",
+  "license": "MIT",
+   "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-native": ">=0.72.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  },
+    "engines": {
+    "node": ">=20.19.4"
+  },
+    "scripts": {
+    "clean": "npx rimraf ./dist",
+    "build": "npm run clean && tsup",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  }
+}
