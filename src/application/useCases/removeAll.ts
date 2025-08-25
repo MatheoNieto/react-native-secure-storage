@@ -1,8 +1,8 @@
 import {SecureStorageRepository} from '@domain/repositories/secureStorageRepository';
 
-export class GetItemStorage {
+export class RemoveAllStorage {
   constructor(private repo: SecureStorageRepository) {}
-  async execute(key: string) {
-    return await this.repo.getItem(key);
+  execute() {
+    return this.repo.removeAll();
   }
 }
