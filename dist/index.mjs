@@ -107,8 +107,9 @@ var useStorage = (keyName) => {
     createUC.removeItem.execute(keyName);
     setValue(null);
   }, [keyName]);
-  const refreshValue = React.useCallback(() => {
-    createUC.getItem.execute(keyName).then(setValue);
+  const refreshValue = React.useCallback(async () => {
+    const newValue = await createUC.getItem.execute(keyName);
+    setValue(newValue);
   }, [keyName]);
   return {
     value,
