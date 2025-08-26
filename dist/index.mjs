@@ -107,9 +107,13 @@ var useStorage = (keyName) => {
     createUC.removeItem.execute(keyName);
     setValue(null);
   }, [keyName]);
+  const refreshValue = React.useCallback(() => {
+    createUC.getItem.execute(keyName).then(setValue);
+  }, [keyName]);
   return {
     value,
     updateValue,
+    refreshValue,
     deleteItem,
     loading
   };
