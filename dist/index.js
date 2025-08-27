@@ -54,9 +54,8 @@ var createStorageUC = (repo2) => ({
 var import_react_native = require("react-native");
 var { SecureStorageModule } = import_react_native.NativeModules;
 var NativeStorage = {
-  getItem: (key) => SecureStorageModule.getItem(key),
-  setItem: (key, value) => SecureStorageModule.setItem(key, value),
-  removeItem: (key) => SecureStorageModule.removeItem(key)
+  getItem: async (key) => await SecureStorageModule.getItem(key),
+  setItem: async (key, value) => await SecureStorageModule.setItem(key, value)
 };
 
 // src/infrastructure/storageRepository.ts
