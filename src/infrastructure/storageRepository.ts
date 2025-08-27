@@ -12,12 +12,12 @@ export class SecureStorageRepositoryImpl implements SecureStorageRepository {
   }
 
   async setItem(key: string, value: string): Promise<void> {
-    return await NativeStorage.saveValue(key, value);
+    return await NativeStorage.setItem(key, value);
   }
   async getItem(key: string): Promise<string | null> {
-    return await NativeStorage.getValue(key);
+    return await NativeStorage.getItem(key);
   }
   async removeItem(key: string): Promise<void> {
-    return await NativeStorage.removeValue(key);
+    return await NativeStorage.removeItem(key);
   }
 }

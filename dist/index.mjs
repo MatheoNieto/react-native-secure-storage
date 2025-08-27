@@ -54,9 +54,9 @@ var createStorageUC = (repo2) => ({
 import { NativeModules } from "react-native";
 var { StorageModule } = NativeModules;
 var NativeStorage = {
-  saveValue: (key, value) => StorageModule.setItem(key, value),
-  getValue: (key) => StorageModule.getItem(key),
-  removeValue: (key) => StorageModule.removeItem(key)
+  getItem: (key) => StorageModule.getItem(key),
+  setItem: (key, value) => StorageModule.setItem(key, value),
+  removeItem: (key) => StorageModule.removeItem(key)
 };
 
 // src/infrastructure/storageRepository.ts
@@ -68,13 +68,13 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
     return _SecureStorageRepositoryImpl._instance;
   }
   async setItem(key, value) {
-    return await NativeStorage.saveValue(key, value);
+    return await NativeStorage.setItem(key, value);
   }
   async getItem(key) {
-    return await NativeStorage.getValue(key);
+    return await NativeStorage.getItem(key);
   }
   async removeItem(key) {
-    return await NativeStorage.removeValue(key);
+    return await NativeStorage.removeItem(key);
   }
 };
 __publicField(_SecureStorageRepositoryImpl, "_instance");
