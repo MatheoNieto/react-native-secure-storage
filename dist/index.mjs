@@ -1,7 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-
 // src/application/useCases/setItem.ts
 var SetItemStorage = class {
   constructor(repo2) {
@@ -38,13 +34,7 @@ var NativeStorage = {
 };
 
 // src/infrastructure/storageRepository.ts
-var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
-  static getInstance() {
-    if (!_SecureStorageRepositoryImpl._instance) {
-      _SecureStorageRepositoryImpl._instance = new _SecureStorageRepositoryImpl();
-    }
-    return _SecureStorageRepositoryImpl._instance;
-  }
+var SecureStorageRepositoryImpl = class {
   async setItem(key, value) {
     return await NativeStorage.setItem(key, value);
   }
@@ -58,11 +48,9 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
   //   return await NativeStorage.removeItem(key);
   // }
 };
-__publicField(_SecureStorageRepositoryImpl, "_instance");
-var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;
 
 // src/index.ts
-var repo = SecureStorageRepositoryImpl.getInstance();
+var repo = new SecureStorageRepositoryImpl();
 var createUC = createStorageUC(repo);
 export {
   createUC

@@ -1,5 +1,5 @@
 import {createStorageUC} from '@application/useCases';
 import {SecureStorageRepositoryImpl} from '@infrastructure/storageRepository';
 
-const repo = SecureStorageRepositoryImpl.getInstance();
+const repo = new SecureStorageRepositoryImpl();
 export const createUC = createStorageUC(repo);

@@ -3,7 +3,6 @@ var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -17,7 +16,6 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 
 // src/index.ts
 var index_exports = {};
@@ -62,13 +60,7 @@ var NativeStorage = {
 };
 
 // src/infrastructure/storageRepository.ts
-var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
-  static getInstance() {
-    if (!_SecureStorageRepositoryImpl._instance) {
-      _SecureStorageRepositoryImpl._instance = new _SecureStorageRepositoryImpl();
-    }
-    return _SecureStorageRepositoryImpl._instance;
-  }
+var SecureStorageRepositoryImpl = class {
   async setItem(key, value) {
     return await NativeStorage.setItem(key, value);
   }
@@ -82,11 +74,9 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
   //   return await NativeStorage.removeItem(key);
   // }
 };
-__publicField(_SecureStorageRepositoryImpl, "_instance");
-var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;
 
 // src/index.ts
-var repo = SecureStorageRepositoryImpl.getInstance();
+var repo = new SecureStorageRepositoryImpl();
 var createUC = createStorageUC(repo);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

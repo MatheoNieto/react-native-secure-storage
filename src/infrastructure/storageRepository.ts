@@ -2,15 +2,6 @@ import {SecureStorageRepository} from '@domain/repositories/secureStorageReposit
 import {NativeStorage} from './nativeStorageBridge';
 
 export class SecureStorageRepositoryImpl implements SecureStorageRepository {
-  private static _instance: SecureStorageRepositoryImpl;
-
-  static getInstance() {
-    if (!SecureStorageRepositoryImpl._instance) {
-      SecureStorageRepositoryImpl._instance = new SecureStorageRepositoryImpl();
-    }
-    return SecureStorageRepositoryImpl._instance;
-  }
-
   async setItem(key: string, value: string) {
     return await NativeStorage.setItem(key, value);
   }
