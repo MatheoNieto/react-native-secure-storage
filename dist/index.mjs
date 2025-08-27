@@ -86,8 +86,7 @@ var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;
 // src/index.ts
 var repo = SecureStorageRepositoryImpl.getInstance();
 var createUC = createStorageUC(repo);
-var index_default = createUC;
 export {
-  index_default as default
+  createUC
 };
 //# sourceMappingURL=index.mjs.map

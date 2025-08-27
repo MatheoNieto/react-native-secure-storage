@@ -35,4 +35,4 @@ declare const createUC: {
     removeAll: RemoveAllStorage;
 };
 
-export { createUC as default };
+export { createUC };

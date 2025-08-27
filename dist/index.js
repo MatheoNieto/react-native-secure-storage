@@ -22,7 +22,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  default: () => index_default
+  createUC: () => createUC
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -110,5 +110,8 @@ var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;
 // src/index.ts
 var repo = SecureStorageRepositoryImpl.getInstance();
 var createUC = createStorageUC(repo);
-var index_default = createUC;
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  createUC
+});
 //# sourceMappingURL=index.js.map
