@@ -3,8 +3,9 @@ const {SecureStorageModule} = NativeModules;
 
 export const nativeStorage = {
   getItem: async (key: string) => {
-    await SecureStorageModule.getItem(key);
+    return await SecureStorageModule.getItem(key);
   },
-  setItem: async (key: string, value: string) =>
-    await SecureStorageModule.setItem(key, value),
+  setItem: async (key: string, value: string) => {
+    return await SecureStorageModule.setItem(key, value);
+  },
 };

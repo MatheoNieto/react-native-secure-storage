@@ -55,9 +55,11 @@ var import_react_native = require("react-native");
 var { SecureStorageModule } = import_react_native.NativeModules;
 var nativeStorage = {
   getItem: async (key) => {
-    await SecureStorageModule.getItem(key);
+    return await SecureStorageModule.getItem(key);
   },
-  setItem: async (key, value) => await SecureStorageModule.setItem(key, value)
+  setItem: async (key, value) => {
+    return await SecureStorageModule.setItem(key, value);
+  }
 };
 
 // src/infrastructure/storageRepository.ts
@@ -66,14 +68,10 @@ var SecureStorageRepositoryImpl = class {
     return await nativeStorage.setItem(key, value);
   }
   async getItem(key) {
-    console.log("SecureStorageRepositoryImpl ======<", key);
     const newValue = await nativeStorage.getItem(key);
     console.log("SecureStorageRepositoryImpl [newValue] ======<", newValue);
-    return Promise.resolve(newValue);
+    return newValue ?? null;
   }
-  // async removeItem(key: string): Promise<void> {
-  //   return await NativeStorage.removeItem(key);
-  // }
 };
 
 // src/index.ts
