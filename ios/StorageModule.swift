@@ -4,7 +4,9 @@ import Foundation
 class StorageModule: NSObject {
 
   @objc
-  func getItem(_ key: String, resolver: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
+  func getItem(_ key: String,
+              resolver: @escaping RCTPromiseResolveBlock,
+              rejecter: @escaping RCTPromiseRejectBlock) {
     let value = UserDefaults.standard.string(forKey: key)
     print("getting value for key: \(key) -> \(String(describing: value))")
     resolver(value)
