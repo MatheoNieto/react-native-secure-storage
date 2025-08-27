@@ -106,6 +106,7 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
     return await NativeStorage.setItem(key, value);
   }
   async getItem(key) {
+    console.log("SecureStorageRepositoryImpl ======<", key);
     return await NativeStorage.getItem(key);
   }
   async removeItem(key) {
@@ -144,6 +145,7 @@ var useStorage = (keyName) => {
   }, [keyName]);
   const refreshValue = import_react.default.useCallback(async () => {
     const newValue = await createUC2.getItem.execute(keyName);
+    console.log("REFRESH VALUE", newValue);
     setValue(newValue);
   }, [keyName]);
   return {

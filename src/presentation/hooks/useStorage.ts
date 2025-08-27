@@ -34,6 +34,7 @@ export const useStorage = (keyName: string) => {
 
   const refreshValue = React.useCallback(async () => {
     const newValue = await createUC.getItem.execute(keyName);
+    console.log('REFRESH VALUE', newValue);
     setValue(newValue);
   }, [keyName]);
 
