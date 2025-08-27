@@ -6,7 +6,6 @@ android {
         minSdkVersion 21
     }
 }
-
 dependencies {
     implementation "com.facebook.react:react-native:+"
 }

@@ -28,14 +28,6 @@ declare class SetItemStorage {
     execute(key: string, value: string): Promise<void>;
 }
 
-declare const useStorage: (keyName: string) => {
-    value: string | null;
-    updateValue: (newValue: string) => void;
-    refreshValue: () => Promise<void>;
-    deleteItem: () => void;
-    loading: boolean;
-};
-
 declare const createUC: {
     setItem: SetItemStorage;
     removeItem: RemoveItemStorage;
@@ -43,4 +35,4 @@ declare const createUC: {
     removeAll: RemoveAllStorage;
 };
 
-export { createUC as default, useStorage };
+export { createUC as default };

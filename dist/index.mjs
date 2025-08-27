@@ -83,53 +83,11 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
 __publicField(_SecureStorageRepositoryImpl, "_instance");
 var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;
 
-// src/presentation/hooks/useStorage.ts
-import React from "react";
-var useStorage = (keyName) => {
-  const repo2 = SecureStorageRepositoryImpl.getInstance();
-  const createUC2 = createStorageUC(repo2);
-  const [value, setValue] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  React.useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const storedValue = await createUC2.getItem.execute(keyName);
-      console.log("===>LOADING DATA MOUNTED===>", storedValue);
-      setValue(storedValue);
-      setLoading(false);
-    })();
-  }, [keyName]);
-  const updateValue = React.useCallback(
-    (newValue) => {
-      createUC2.setItem.execute(keyName, newValue);
-      setValue(newValue);
-    },
-    [value, keyName]
-  );
-  const deleteItem = React.useCallback(() => {
-    createUC2.removeItem.execute(keyName);
-    setValue(null);
-  }, [keyName]);
-  const refreshValue = React.useCallback(async () => {
-    const newValue = await createUC2.getItem.execute(keyName);
-    console.log("REFRESH VALUE", newValue);
-    setValue(newValue);
-  }, [keyName]);
-  return {
-    value,
-    updateValue,
-    refreshValue,
-    deleteItem,
-    loading
-  };
-};
-
 // src/index.ts
 var repo = SecureStorageRepositoryImpl.getInstance();
 var createUC = createStorageUC(repo);
 var index_default = createUC;
 export {
-  index_default as default,
-  useStorage
+  index_default as default
 };
 //# sourceMappingURL=index.mjs.map
