@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "react-native-native-storage"
+  s.name         = "react-native-secure-storage"
   s.version      = "1.0.0"
   s.summary      = "Native storage module for React Native"
   s.source_files = "ios/**/*.{h,m,swift}"

@@ -107,7 +107,9 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
   }
   async getItem(key) {
     console.log("SecureStorageRepositoryImpl ======<", key);
-    return await NativeStorage.getItem(key);
+    const newValue = await NativeStorage.getItem(key);
+    console.log("SecureStorageRepositoryImpl [newValue] ======<", newValue);
+    return Promise.resolve(newValue);
   }
   async removeItem(key) {
     return await NativeStorage.removeItem(key);
