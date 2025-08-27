@@ -70,11 +70,11 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
     return _SecureStorageRepositoryImpl._instance;
   }
   async setItem(key, value) {
-    return NativeStorage.setItem(key, value);
+    return await NativeStorage.setItem(key, value);
   }
   async getItem(key) {
     console.log("SecureStorageRepositoryImpl ======<", key);
-    const newValue = NativeStorage.getItem(key);
+    const newValue = await NativeStorage.getItem(key);
     console.log("SecureStorageRepositoryImpl [newValue] ======<", newValue);
     return newValue;
   }

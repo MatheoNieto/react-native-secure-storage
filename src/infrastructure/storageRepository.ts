@@ -12,11 +12,11 @@ export class SecureStorageRepositoryImpl implements SecureStorageRepository {
   }
 
   async setItem(key: string, value: string) {
-    return NativeStorage.setItem(key, value);
+    return await NativeStorage.setItem(key, value);
   }
   async getItem(key: string) {
     console.log('SecureStorageRepositoryImpl ======<', key);
-    const newValue = NativeStorage.getItem(key);
+    const newValue = await NativeStorage.getItem(key);
     console.log('SecureStorageRepositoryImpl [newValue] ======<', newValue);
     return newValue;
   }
