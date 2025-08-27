@@ -123,18 +123,13 @@ var useStorage = (keyName) => {
   const [value, setValue] = import_react.default.useState(null);
   const [loading, setLoading] = import_react.default.useState(false);
   import_react.default.useEffect(() => {
-    let isMounted = true;
     (async () => {
       setLoading(true);
       const storedValue = await createUC2.getItem.execute(keyName);
-      if (isMounted) {
-        setValue(storedValue);
-        setLoading(false);
-      }
+      console.log("===>LOADING DATA MOUNTED===>", storedValue);
+      setValue(storedValue);
+      setLoading(false);
     })();
-    return () => {
-      isMounted = false;
-    };
   }, [keyName]);
   const updateValue = import_react.default.useCallback(
     (newValue) => {

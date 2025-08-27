@@ -10,20 +10,13 @@ export const useStorage = (keyName: string) => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    let isMounted = true;
-
     (async () => {
       setLoading(true);
       const storedValue = await createUC.getItem.execute(keyName);
-      if (isMounted) {
-        setValue(storedValue);
-        setLoading(false);
-      }
+      console.log('===>LOADING DATA MOUNTED===>', storedValue);
+      setValue(storedValue);
+      setLoading(false);
     })();
-
-    return () => {
-      isMounted = false;
-    };
   }, [keyName]);
 
   const updateValue = React.useCallback(
