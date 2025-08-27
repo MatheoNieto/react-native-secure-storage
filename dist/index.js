@@ -36,16 +36,6 @@ var SetItemStorage = class {
   }
 };
 
-// src/application/useCases/removeItem.ts
-var RemoveItemStorage = class {
-  constructor(repo2) {
-    this.repo = repo2;
-  }
-  execute(key) {
-    return this.repo.removeItem(key);
-  }
-};
-
 // src/application/useCases/getItem.ts
 var GetItemStorage = class {
   constructor(repo2) {
@@ -56,31 +46,19 @@ var GetItemStorage = class {
   }
 };
 
-// src/application/useCases/removeAll.ts
-var RemoveAllStorage = class {
-  constructor(repo2) {
-    this.repo = repo2;
-  }
-  execute() {
-    console.log("removing all items from storage");
-  }
-};
-
 // src/application/useCases/index.ts
 var createStorageUC = (repo2) => ({
-  setItem: new SetItemStorage(repo2),
-  removeItem: new RemoveItemStorage(repo2),
-  getItem: new GetItemStorage(repo2),
-  removeAll: new RemoveAllStorage(repo2)
+  setItem: (key, newValue) => new SetItemStorage(repo2).execute(key, newValue),
+  getItem: (key) => new GetItemStorage(repo2).execute(key)
 });
 
 // src/infrastructure/nativeStorageBridge.ts
 var import_react_native = require("react-native");
-var { StorageModule } = import_react_native.NativeModules;
+var { SecureStorageModule } = import_react_native.NativeModules;
 var NativeStorage = {
-  getItem: (key) => StorageModule.getItem(key),
-  setItem: (key, value) => StorageModule.setItem(key, value),
-  removeItem: (key) => StorageModule.removeItem(key)
+  getItem: (key) => SecureStorageModule.getItem(key),
+  setItem: (key, value) => SecureStorageModule.setItem(key, value),
+  removeItem: (key) => SecureStorageModule.removeItem(key)
 };
 
 // src/infrastructure/storageRepository.ts
@@ -92,17 +70,17 @@ var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
     return _SecureStorageRepositoryImpl._instance;
   }
   async setItem(key, value) {
-    return await NativeStorage.setItem(key, value);
+    return NativeStorage.setItem(key, value);
   }
   async getItem(key) {
     console.log("SecureStorageRepositoryImpl ======<", key);
-    const newValue = await NativeStorage.getItem(key);
+    const newValue = NativeStorage.getItem(key);
     console.log("SecureStorageRepositoryImpl [newValue] ======<", newValue);
     return newValue;
   }
-  async removeItem(key) {
-    return await NativeStorage.removeItem(key);
-  }
+  // async removeItem(key: string): Promise<void> {
+  //   return await NativeStorage.removeItem(key);
+  // }
 };
 __publicField(_SecureStorageRepositoryImpl, "_instance");
 var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;

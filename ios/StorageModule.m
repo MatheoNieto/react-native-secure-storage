@@ -1,6 +1,6 @@
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_MODULE(StorageModule, NSObject)
+@interface RCT_EXTERN_MODULE(SecureStorageModule, NSObject)
 
 RCT_EXTERN_METHOD(getItem:(NSString *)key
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -8,10 +8,6 @@ RCT_EXTERN_METHOD(getItem:(NSString *)key
 
 RCT_EXTERN_METHOD(setItem:(NSString *)key
                   value:(NSString *)value
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-
-RCT_EXTERN_METHOD(removeItem:(NSString *)key
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 

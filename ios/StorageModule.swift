@@ -1,7 +1,7 @@
 import Foundation
 
-@objc(StorageModule)
-class StorageModule: NSObject {
+@objc(SecureStorageModule)
+class SecureStorageModule: NSObject {
 
   @objc
   func getItem(_ key: String,
@@ -19,8 +19,4 @@ class StorageModule: NSObject {
     resolver(true)
   }
 
-  @objc func removeItem(_ key: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-    UserDefaults.standard.removeObject(forKey: key)
-    resolve(true)
-  }
 }

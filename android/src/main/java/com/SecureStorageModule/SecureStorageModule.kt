@@ -4,16 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.facebook.react.bridge.*
 
-class StorageModule(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
+class SecureStorageModule(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
     private val prefs: SharedPreferences = reactContext.getSharedPreferences("storage", Context.MODE_PRIVATE)
 
-    override fun getName(): String = "StorageModule"
+    override fun getName(): String = "SecureStorageModule"
 
-    @ReactMethod
-    fun removeItem(key: String, promise: Promise) {
-        prefs.edit().remove(key).apply()
-        promise.resolve(true)
-    }
 
     @ReactMethod
     fun setItem(key: String, value: String, promise: Promise) {
