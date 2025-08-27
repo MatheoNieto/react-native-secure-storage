@@ -27,6 +27,7 @@ var createStorageUC = (repo2) => ({
 // src/infrastructure/nativeStorageBridge.ts
 import { NativeModules } from "react-native";
 var { SecureStorageModule } = NativeModules;
+console.log("Available native modules:", NativeModules);
 var nativeStorage = {
   getItem: async (key) => {
     return await SecureStorageModule.getItem(key);
@@ -42,6 +43,7 @@ var SecureStorageRepositoryImpl = class {
     return await nativeStorage.setItem(key, value);
   }
   async getItem(key) {
+    console.log("SecureStorageRepositoryImpl [newValue] ======<", key);
     const newValue = await nativeStorage.getItem(key);
     console.log("SecureStorageRepositoryImpl [newValue] ======<", newValue);
     return newValue ?? null;
