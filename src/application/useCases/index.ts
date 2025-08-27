@@ -1,4 +1,4 @@
-import {SecureStorageRepository} from '@domain/repositories/secureStorageRepository';
+import {SecureStorageRepository} from '@domain/secureStorageRepository';
 import {SetItemStorage} from './setItem';
 import {GetItemStorage} from './getItem';
 

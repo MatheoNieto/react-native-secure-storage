@@ -1,4 +1,4 @@
-import { SecureStorageRepository } from "@domain/repositories/secureStorageRepository";
+import {SecureStorageRepository} from '@domain/secureStorageRepository';
 
 export class SetItemStorage {
   constructor(private repo: SecureStorageRepository) {}
