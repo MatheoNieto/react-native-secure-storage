@@ -1,7 +1,11 @@
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+
 // src/application/useCases/setItem.ts
 var SetItemStorage = class {
-  constructor(repo) {
-    this.repo = repo;
+  constructor(repo2) {
+    this.repo = repo2;
   }
   execute(key, value) {
     return this.repo.setItem(key, value);
@@ -10,8 +14,8 @@ var SetItemStorage = class {
 
 // src/application/useCases/removeItem.ts
 var RemoveItemStorage = class {
-  constructor(repo) {
-    this.repo = repo;
+  constructor(repo2) {
+    this.repo = repo2;
   }
   execute(key) {
     return this.repo.removeItem(key);
@@ -20,8 +24,8 @@ var RemoveItemStorage = class {
 
 // src/application/useCases/getItem.ts
 var GetItemStorage = class {
-  constructor(repo) {
-    this.repo = repo;
+  constructor(repo2) {
+    this.repo = repo2;
   }
   async execute(key) {
     return await this.repo.getItem(key);
@@ -30,24 +34,21 @@ var GetItemStorage = class {
 
 // src/application/useCases/removeAll.ts
 var RemoveAllStorage = class {
-  constructor(repo) {
-    this.repo = repo;
+  constructor(repo2) {
+    this.repo = repo2;
   }
   execute() {
-    return this.repo.removeAll();
+    console.log("removing all items from storage");
   }
 };
 
 // src/application/useCases/index.ts
-var createStorageUC = (repo) => ({
-  setItem: new SetItemStorage(repo),
-  removeItem: new RemoveItemStorage(repo),
-  getItem: new GetItemStorage(repo),
-  removeAll: new RemoveAllStorage(repo)
+var createStorageUC = (repo2) => ({
+  setItem: new SetItemStorage(repo2),
+  removeItem: new RemoveItemStorage(repo2),
+  getItem: new GetItemStorage(repo2),
+  removeAll: new RemoveAllStorage(repo2)
 });
-
-// src/presentation/hooks/useStorage.ts
-import React from "react";
 
 // src/infrastructure/nativeStorageBridge.ts
 import { NativeModules } from "react-native";
@@ -55,13 +56,17 @@ var { StorageModule } = NativeModules;
 var NativeStorage = {
   saveValue: (key, value) => StorageModule.setItem(key, value),
   getValue: (key) => StorageModule.getItem(key),
-  removeValue: (key) => StorageModule.removeItem(key),
-  removeAll: () => {
-  }
+  removeValue: (key) => StorageModule.removeItem(key)
 };
 
 // src/infrastructure/storageRepository.ts
-var SecureStorageRepositoryImpl = class {
+var _SecureStorageRepositoryImpl = class _SecureStorageRepositoryImpl {
+  static getInstance() {
+    if (!_SecureStorageRepositoryImpl._instance) {
+      _SecureStorageRepositoryImpl._instance = new _SecureStorageRepositoryImpl();
+    }
+    return _SecureStorageRepositoryImpl._instance;
+  }
   async setItem(key, value) {
     return await NativeStorage.saveValue(key, value);
   }
@@ -71,22 +76,22 @@ var SecureStorageRepositoryImpl = class {
   async removeItem(key) {
     return await NativeStorage.removeValue(key);
   }
-  async removeAll() {
-    return NativeStorage.removeAll();
-  }
 };
+__publicField(_SecureStorageRepositoryImpl, "_instance");
+var SecureStorageRepositoryImpl = _SecureStorageRepositoryImpl;
 
 // src/presentation/hooks/useStorage.ts
+import React from "react";
 var useStorage = (keyName) => {
-  const repo = new SecureStorageRepositoryImpl();
-  const createUC = createStorageUC(repo);
+  const repo2 = SecureStorageRepositoryImpl.getInstance();
+  const createUC2 = createStorageUC(repo2);
   const [value, setValue] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     let isMounted = true;
     (async () => {
       setLoading(true);
-      const storedValue = await createUC.getItem.execute(keyName);
+      const storedValue = await createUC2.getItem.execute(keyName);
       if (isMounted) {
         setValue(storedValue);
         setLoading(false);
@@ -98,17 +103,17 @@ var useStorage = (keyName) => {
   }, [keyName]);
   const updateValue = React.useCallback(
     (newValue) => {
-      createUC.setItem.execute(keyName, newValue);
+      createUC2.setItem.execute(keyName, newValue);
       setValue(newValue);
     },
     [value, keyName]
   );
   const deleteItem = React.useCallback(() => {
-    createUC.removeItem.execute(keyName);
+    createUC2.removeItem.execute(keyName);
     setValue(null);
   }, [keyName]);
   const refreshValue = React.useCallback(async () => {
-    const newValue = await createUC.getItem.execute(keyName);
+    const newValue = await createUC2.getItem.execute(keyName);
     setValue(newValue);
   }, [keyName]);
   return {
@@ -119,7 +124,13 @@ var useStorage = (keyName) => {
     loading
   };
 };
+
+// src/index.ts
+var repo = SecureStorageRepositoryImpl.getInstance();
+var createUC = createStorageUC(repo);
+var index_default = createUC;
 export {
+  index_default as default,
   useStorage
 };
 //# sourceMappingURL=index.mjs.map

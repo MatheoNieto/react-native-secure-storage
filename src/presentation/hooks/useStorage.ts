@@ -3,7 +3,7 @@ import React from 'react';
 import {SecureStorageRepositoryImpl} from '@infrastructure/storageRepository';
 
 export const useStorage = (keyName: string) => {
-  const repo = new SecureStorageRepositoryImpl();
+  const repo = SecureStorageRepositoryImpl.getInstance();
   const createUC = createStorageUC(repo);
 
   const [value, setValue] = React.useState<string | null>(null);

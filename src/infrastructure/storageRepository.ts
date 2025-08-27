@@ -2,6 +2,15 @@ import {SecureStorageRepository} from '@domain/repositories/secureStorageReposit
 import {NativeStorage} from './nativeStorageBridge';
 
 export class SecureStorageRepositoryImpl implements SecureStorageRepository {
+  private static _instance: SecureStorageRepositoryImpl;
+
+  static getInstance() {
+    if (!SecureStorageRepositoryImpl._instance) {
+      SecureStorageRepositoryImpl._instance = new SecureStorageRepositoryImpl();
+    }
+    return SecureStorageRepositoryImpl._instance;
+  }
+
   async setItem(key: string, value: string): Promise<void> {
     return await NativeStorage.saveValue(key, value);
   }
@@ -10,8 +19,5 @@ export class SecureStorageRepositoryImpl implements SecureStorageRepository {
   }
   async removeItem(key: string): Promise<void> {
     return await NativeStorage.removeValue(key);
-  }
-  async removeAll(): Promise<void> {
-    return NativeStorage.removeAll();
   }
 }

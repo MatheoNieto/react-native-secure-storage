@@ -7,5 +7,4 @@ export const NativeStorage = {
     StorageModule.setItem(key, value),
   getValue: (key: string): Promise<string | null> => StorageModule.getItem(key),
   removeValue: (key: string): Promise<void> => StorageModule.removeItem(key),
-  removeAll: () => {},
 };

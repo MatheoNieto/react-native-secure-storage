@@ -3,6 +3,6 @@ import {SecureStorageRepository} from '@domain/repositories/secureStorageReposit
 export class RemoveAllStorage {
   constructor(private repo: SecureStorageRepository) {}
   execute() {
-    return this.repo.removeAll();
+    console.log('removing all items from storage');
   }
 }

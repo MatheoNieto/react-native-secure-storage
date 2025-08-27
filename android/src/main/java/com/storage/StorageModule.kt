@@ -10,20 +10,28 @@ class StorageModule(reactContext: ReactApplicationContext): ReactContextBaseJava
     override fun getName(): String = "StorageModule"
 
     @ReactMethod
-    fun setItem(key: String, value: String, promise: Promise) {
-        prefs.edit().putString(key, value).apply()
+    fun removeItem(key: String, promise: Promise) {
+        prefs.edit().remove(key).apply()
         promise.resolve(true)
+    }
+
+    @ReactMethod
+    fun setItem(key: String, value: String, promise: Promise) {
+        try {
+            sharedPreferences.edit().putString(key, value).apply()
+            promise.resolve(true)
+        } catch (e: Exception) {
+            promise.reject("SAVE_ERROR", e)
+        }
     }
 
     @ReactMethod
     fun getItem(key: String, promise: Promise) {
-        val value = prefs.getString(key, null)
-        promise.resolve(value)
-    }
-
-    @ReactMethod
-    fun removeItem(key: String, promise: Promise) {
-        prefs.edit().remove(key).apply()
-        promise.resolve(true)
+        try {
+            val value = sharedPreferences.getString(key, null)
+            promise.resolve(value)
+        } catch (e: Exception) {
+            promise.reject("GET_ERROR", e)
+        }
     }
 }
