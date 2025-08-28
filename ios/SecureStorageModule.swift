@@ -9,14 +9,14 @@ class SecureStorageModule: NSObject, RCTBridgeModule {
   }
 
   static func requiresMainQueueSetup() -> Bool {
-    print("🔵 SecureStorageModule requiresMainQueueSetup() called")
+    print("🔵 SecureStorageModule requiresMainQueueSetup() called")  
     return false
   }
   
-  // to verify initialization
+  // Add this to see if the module is being created
   override init() {
     super.init()
-    print("🔵 SecureStorageModule initialized!")
+    print("🔵 SecureStorageModule INITIALIZED!")
   }
 
   @objc
@@ -24,7 +24,7 @@ class SecureStorageModule: NSObject, RCTBridgeModule {
                resolver: @escaping RCTPromiseResolveBlock,
                rejecter: @escaping RCTPromiseRejectBlock) {
     let value = UserDefaults.standard.string(forKey: key)
-    print("getting value for key: \(key) -> \(String(describing: value))")
+    print("🔵 getItem called - key: \(key) -> value: \(String(describing: value))")
     resolver(value)
   }
 
@@ -33,7 +33,7 @@ class SecureStorageModule: NSObject, RCTBridgeModule {
                value: String,
                resolver: @escaping RCTPromiseResolveBlock,
                rejecter: @escaping RCTPromiseRejectBlock) {
-    print("Setting value for key: \(key)")
+    print("🔵 setItem called - key: \(key), value: \(value)")
     UserDefaults.standard.set(value, forKey: key)
     resolver(true)
   }
