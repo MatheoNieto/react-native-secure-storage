@@ -3,12 +3,20 @@ import React
 
 @objc(SecureStorageModule)
 class SecureStorageModule: NSObject, RCTBridgeModule {
-  static func moduleName() -> String! {
+    
+  static func moduleName() -> String {
     return "SecureStorageModule"
   }
 
   static func requiresMainQueueSetup() -> Bool {
+    print("🔵 SecureStorageModule requiresMainQueueSetup() called")
     return false
+  }
+  
+  // to verify initialization
+  override init() {
+    super.init()
+    print("🔵 SecureStorageModule initialized!")
   }
 
   @objc

@@ -1,6 +1,7 @@
 {
   "name": "react-native-secure-storage",
   "version": "1.0.0",
+  "description": "Native storage module for React Native",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
