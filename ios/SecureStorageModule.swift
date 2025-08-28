@@ -1,4 +1,5 @@
 import Foundation
+import React
 
 @objc(SecureStorageModule)
 class SecureStorageModule: NSObject, RCTBridgeModule {
