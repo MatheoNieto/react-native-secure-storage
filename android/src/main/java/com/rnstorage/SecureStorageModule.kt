@@ -26,7 +26,6 @@ class SecureStorageModule(reactContext: ReactApplicationContext) : ReactContextB
             Log.d(TAG, "🔵 getItem called with key: $key")
             val prefs = getSharedPreferences()
             val value = prefs.getString(key, null)
-            Log.d(TAG, "🔵 getItem result: $value")
             promise.resolve(value)
         } catch (e: Exception) {
             Log.e(TAG, "❌ Error in getItem: ${e.message}", e)

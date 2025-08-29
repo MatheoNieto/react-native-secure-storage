@@ -12,7 +12,6 @@ RCT_EXPORT_METHOD(getItem:(NSString *)key
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString *value = [[NSUserDefaults standardUserDefaults] stringForKey:key];
-    NSLog(@"🔵 getItem result: %@", value);
     resolve(value);
 }
 
