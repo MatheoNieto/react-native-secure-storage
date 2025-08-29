@@ -1,0 +1,8 @@
+node_modules
+src
+.prettierrc.js
+.prettierrc
+tsupconfig.ts
+tsconfig.json
+package-lock.json
+yarn.lock
