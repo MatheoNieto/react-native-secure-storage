@@ -1,6 +1,7 @@
 {
-  "name": "react-native-secure-storage",
+  "name": "storage-react-native",
   "version": "1.0.0",
+  "private": false,
   "description": "Native storage module for React Native",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:MatheoNieto/react-native-secure-storage.git"
+    "url": "git+ssh://git@github.com/MatheoNieto/react-native-secure-storage.git"
   },
   "bugs": {
     "type": "git",
