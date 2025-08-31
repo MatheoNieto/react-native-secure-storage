@@ -1,4 +1,4 @@
-import {StorageRepository} from '@domain/StorageRepository';
+import {StorageRepository} from '@domain/storageRepository';
 import {nativeStorage} from '../nativeStorageBridge';
 
 export class StorageRepositoryImpl implements StorageRepository {
