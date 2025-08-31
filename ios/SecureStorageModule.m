@@ -17,6 +17,4 @@ RCT_EXTERN_METHOD(removeItem:(NSString *)key
 
 RCT_EXTERN_METHOD(removeAll:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
-
-
 @end
