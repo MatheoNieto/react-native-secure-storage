@@ -5,6 +5,13 @@ declare const useStorage: (keyName: string) => {
     loading: boolean;
 };
 
+declare const useSecureStorage: (keyName: string) => {
+    value: string | null;
+    updateValue: (newValue: string) => void;
+    refreshValue: () => Promise<void>;
+    loading: boolean;
+};
+
 declare const Storage: {
     setItem: (key: string, newValue: string) => Promise<void>;
     getItem: (key: string) => Promise<string | null>;
@@ -16,4 +23,4 @@ declare const SecureStorage: {
     removeAll: () => void;
 };
 
-export { SecureStorage, Storage, useStorage };
+export { SecureStorage, Storage, useSecureStorage, useStorage };
