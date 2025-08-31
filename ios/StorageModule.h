@@ -1,7 +1,5 @@
-
-
 #import <React/RCTBridgeModule.h>
 
-@interface SecureStorageModule : NSObject <RCTBridgeModule>
+@interface StorageModule : NSObject <RCTBridgeModule>
 
 @end
