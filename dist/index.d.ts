@@ -5,9 +5,15 @@ declare const useStorage: (keyName: string) => {
     loading: boolean;
 };
 
-declare const createUC: {
+declare const Storage: {
     setItem: (key: string, newValue: string) => Promise<void>;
     getItem: (key: string) => Promise<string | null>;
 };
+declare const SecureStorage: {
+    setItem: (key: string, newValue: string) => Promise<void>;
+    getItem: (key: string) => Promise<string | null>;
+    removeItem: (key: string) => Promise<void>;
+    removeAll: () => void;
+};
 
-export { createUC, useStorage };
+export { SecureStorage, Storage, useStorage };

@@ -1,7 +1,7 @@
-import {SecureStorageRepository} from '@domain/secureStorageRepository';
-import {nativeStorage} from './nativeStorageBridge';
+import {StorageRepository} from '@domain/StorageRepository';
+import {nativeStorage} from '../nativeStorageBridge';
 
-export class SecureStorageRepositoryImpl implements SecureStorageRepository {
+export class StorageRepositoryImpl implements StorageRepository {
   async setItem(key: string, value: string) {
     return await nativeStorage.setItem(key, value);
   }

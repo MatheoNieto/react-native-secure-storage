@@ -1,10 +1,10 @@
-import {createStorageUC} from '@application/useCases';
+import {createSecureStorageUC} from '@application/useCases';
 import React from 'react';
-import {StorageRepositoryImpl} from '@infrastructure/repositories/storageRepository';
+import {SecureStorageRepositoryImpl} from '@infrastructure/repositories/secureStorageRepository';
 
-export const useStorage = (keyName: string) => {
-  const repo = new StorageRepositoryImpl();
-  const createUC = createStorageUC(repo);
+export const useSecureStorage = (keyName: string) => {
+  const repo = new SecureStorageRepositoryImpl();
+  const createUC = createSecureStorageUC(repo);
 
   const [value, setValue] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
