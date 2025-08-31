@@ -1,10 +1,3 @@
-//
-//  StorageModule.m
-//  storage
-//
-//  Created by Matheo Nieto on 30/08/25.
-//
-
 #import <React/RCTBridgeModule.h>
 
 @interface RCT_EXTERN_MODULE(StorageModule, NSObject)
