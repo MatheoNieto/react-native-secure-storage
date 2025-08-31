@@ -9,3 +9,4 @@ export const Storage = createStorageUC(repoStorage);
 export const SecureStorage = createSecureStorageUC(repoSecureStorage);
 
 export * from '@presentation/hooks/useStorage';
+export * from '@presentation/hooks/useSecureStorage';
