@@ -6,10 +6,12 @@
 //
 
 import Foundation
-import CryptoKit
 import Security
+#if canImport(CryptoKit)
+import CryptoKit
+#endif
 
-
+@available(iOS 13.0, *)
 class AESEncryptionHelper {
   private static let keyService = "com.storateNative.encryption"
   private static let keyAccount = "encriptionAESEKey"

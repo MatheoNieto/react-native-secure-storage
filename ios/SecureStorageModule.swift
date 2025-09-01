@@ -7,18 +7,18 @@
 
 import Foundation
 
+// React Native Bridge Types
+typealias RCTPromiseResolveBlock = (Any?) -> Void
+typealias RCTPromiseRejectBlock = (String?, String?, Error?) -> Void
+
 @objc(SecureStorageModule)
 class SecureStorageModule: NSObject {
   private let secureStorage: SecureStorageManager
-  
-  override init() {
-    do {
-      self.secureStorage = try SecureStorageManager()
-    } catch {
-      fatalError("Failed to initialize SecureStorageManager: \(error)")
+    
+    override init() {
+      self.secureStorage = SecureStorageManager()
+      super.init()
     }
-    super.init()
-  }
   
   @objc func saveString(_ key: String, value: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     do {
@@ -46,14 +46,18 @@ class SecureStorageModule: NSObject {
     resolve(true)
   }
   
-  @objc func removeAll(
-    resolver
-    resolve: RCTPromiseResolveBlock,
-    rejecter reject: RCTPromiseRejectBlock
-  ) {
-    let domain = Bundle.main.bundleIdentifier!
-    UserDefaults.standard.removePersistentDomain(forName: domain)
+  @objc func removeAll(_ resolver: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+    if let domain = Bundle.main.bundleIdentifier {
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+    }
     resolve(true)
   }
 }
 
+// MARK: - React Native Bridge Requirements
+extension SecureStorageModule {
+  @objc static func requiresMainQueueSetup() -> Bool {
+    return false
+  }
+}
