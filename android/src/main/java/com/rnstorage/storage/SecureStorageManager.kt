@@ -1,9 +1,11 @@
 package com.rnstorage
 
-import com.facebook.react.ReactPackage
-import com.facebook.react.bridge.NativeModule
-import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.uimanager.ViewManager
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
+import org.json.JSONObject
+import org.json.JSONException
+import javax.crypto.SecretKey
 
 class SecureStorageManager(private val context: Context) {
     private val secretKey: SecretKey?

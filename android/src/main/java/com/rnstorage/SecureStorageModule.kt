@@ -6,19 +6,23 @@ import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableNativeArray
-import com.facebook.react.bridge.WritableNativeMap
-import com.facebook.react.bridge.Arguments
 import android.util.Log
 
 class SecureStorageModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     private val secureStorage = SecureStorageManager(reactContext)
 
     companion object {
+        private const val MODULE_NAME = "SecureStorageModule"
+        private const val PREFS_NAME = "SecureStorageModule"
         private const val TAG = "SecureStorageModule"
     }
 
     override fun getName(): String {
-        return "SecureStorageModule"
+        return MODULE_NAME
+    }
+
+    private fun getSharedPreferences(): SharedPreferences {
+        return reactApplicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     @ReactMethod

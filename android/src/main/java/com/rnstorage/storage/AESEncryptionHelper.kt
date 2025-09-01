@@ -1,7 +1,5 @@
 package com.rnstorage
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
@@ -11,8 +9,6 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
-import org.json.JSONObject
-import org.json.JSONException
 
 class AESEncryptionHelper {
     companion object {
