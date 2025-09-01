@@ -12,7 +12,7 @@ import javax.crypto.spec.GCMParameterSpec
 class AESEncryptionHelper {
     companion object {
         private const val KEY_ALIAS = "SecureStorageKey"
-        private const val ANDROID_KEYSTORE = "AndroidKeystore"
+        val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
         private const val CIPHER_TRANSFORMATION = "AES/GCM/NoPadding"
         private const val GCM_IV_LENGTH = 12
         private const val GCM_TAG_LENGTH = 16
