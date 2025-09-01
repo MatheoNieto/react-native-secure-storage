@@ -17,7 +17,7 @@ class SecureStorageManager {
   init() {
         if #available(iOS 13.0, *) {
             do {
-                self.encryptionKey = try AESEncryptionHelper.getOrCreateKey()
+              self.encryptionKey = try AESEncryptionHelper.gettingKey()
                 self.isEncryptionAvailable = true
             } catch {
                 self.encryptionKey = nil
@@ -35,11 +35,11 @@ class SecureStorageManager {
     let data = try encoder.encode(object)
 
         if isEncryptionAvailable, let encryptionKey = self.encryptionKey {
-            if #available(iOS 13.0, *) {
+            
                 let encryptedData = try AESEncryptionHelper.encrypt(data: data, key: encryptionKey)
                 UserDefaults.standard.set(encryptedData, forKey: key)
                 print("Data saved with encryption for key: \(key)")
-            }
+         
         } else {
             // Fallback: save unencrypted data for iOS < 13
             UserDefaults.standard.set(data, forKey: key)
