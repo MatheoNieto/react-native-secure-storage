@@ -7,7 +7,10 @@ import com.facebook.react.uimanager.ViewManager
 
 class SecureStoragePackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-        return listOf(SecureStorageModule(reactContext)) 
+        return listOf(
+            SecureStorageModule(reactContext),
+            StorageModule(reactContext)
+        )
     }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
