@@ -12,7 +12,7 @@ import javax.crypto.spec.GCMParameterSpec
 class AESEncryptionHelper {
     companion object {
         private const val KEY_ALIAS = "SecureStorageKey"
-        val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
+        private const val ANDROID_KEYSTORE = "AndroidKeyStore" 
         private const val CIPHER_TRANSFORMATION = "AES/GCM/NoPadding"
         private const val GCM_IV_LENGTH = 12
         private const val GCM_TAG_LENGTH = 16
@@ -23,8 +23,11 @@ class AESEncryptionHelper {
 
         @Throws(Exception::class)
         fun generateKey(): SecretKey {
-            val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
-            
+            val keyGenerator = KeyGenerator.getInstance(
+                KeyProperties.KEY_ALGORITHM_AES,
+                ANDROID_KEYSTORE
+            )
+
             val keyGenParameterSpec = KeyGenParameterSpec.Builder(
                 KEY_ALIAS,
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
@@ -32,6 +35,7 @@ class AESEncryptionHelper {
                 .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                 .setRandomizedEncryptionRequired(true)
+                .setKeySize(256) // ✅ recommended
                 .build()
 
             keyGenerator.init(keyGenParameterSpec)
@@ -40,8 +44,7 @@ class AESEncryptionHelper {
 
         @Throws(Exception::class)
         fun getOrCreateKey(): SecretKey {
-            val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
-            keyStore.load(null)
+            val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
 
             return if (keyStore.containsAlias(KEY_ALIAS)) {
                 keyStore.getKey(KEY_ALIAS, null) as SecretKey
@@ -59,13 +62,13 @@ class AESEncryptionHelper {
             val encryptedData = cipher.doFinal(data.toByteArray(Charsets.UTF_8))
 
             val combined = iv + encryptedData
-            return Base64.encodeToString(combined, Base64.DEFAULT)
+            return Base64.encodeToString(combined, Base64.NO_WRAP) // ✅ no line breaks
         }
 
         @Throws(Exception::class)
         fun decrypt(encryptedData: String, key: SecretKey): String {
-            val combined = Base64.decode(encryptedData, Base64.DEFAULT)
-            
+            val combined = Base64.decode(encryptedData, Base64.NO_WRAP)
+
             val iv = combined.copyOfRange(0, GCM_IV_LENGTH)
             val cipherText = combined.copyOfRange(GCM_IV_LENGTH, combined.size)
 
