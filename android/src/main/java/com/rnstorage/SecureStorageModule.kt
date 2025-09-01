@@ -1,57 +1,59 @@
 package com.rnstorage
-import android.content.Context
-import android.content.SharedPreferences
+
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReactContextBaseJavaModule
+import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.WritableNativeArray
+import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.bridge.Arguments
 import android.util.Log
-import com.facebook.react.bridge.*
 
 class SecureStorageModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+    private val secureStorage = SecureStorageManager(reactContext)
 
     companion object {
-        private const val MODULE_NAME = "SecureStorageModule"
-        private const val PREFS_NAME = "SecureStorage"
         private const val TAG = "SecureStorageModule"
     }
 
     override fun getName(): String {
-        return MODULE_NAME
-    }
-
-    private fun getSharedPreferences(): SharedPreferences {
-        return reactApplicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return "SecureStorageModule"
     }
 
     @ReactMethod
-    fun getItem(key: String, promise: Promise) {
+    fun saveString(key: String, value: String, promise: Promise) {
         try {
-            Log.d(TAG, "🔵 getItem called with key: $key")
-            val prefs = getSharedPreferences()
-            val value = prefs.getString(key, null)
+            secureStorage.saveString(key, value)
+            Log.d(TAG, "String data saved for key: $key")
+            promise.resolve(true)
+        } catch (e: Exception) {
+            promise.reject("SAVE_ERROR", "Failed to save string data: ${e.message}", e)
+            Log.e(TAG, "Failed to save string data: ${e.message}")
+        }
+    }
+
+    @ReactMethod
+    fun loadString(key: String, promise: Promise) {
+        try {
+            val value = secureStorage.loadString(key)
             promise.resolve(value)
         } catch (e: Exception) {
-            Log.e(TAG, "❌ Error in getItem: ${e.message}", e)
-            promise.reject("ERROR", "Failed to get item: ${e.message}", e)
+            promise.reject("LOAD_ERROR", "Failed to load string data: ${e.message}", e)
+            Log.e(TAG, "Failed to load string data: ${e.message}")
         }
     }
 
     @ReactMethod
-    fun setItem(key: String, value: String, promise: Promise) {
-        try {
-            Log.d(TAG, "🔵 setItem called with key: $key, value: $value")
-            val prefs = getSharedPreferences()
-            val editor = prefs.edit()
-            editor.putString(key, value)
-            val success = editor.commit()
-            
-            if (success) {
-                Log.d(TAG, "🔵 setItem successful")
-                promise.resolve(true)
-            } else {
-                Log.e(TAG, "❌ setItem failed to commit")
-                promise.reject("ERROR", "Failed to save item")
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "❌ Error in setItem: ${e.message}", e)
-            promise.reject("ERROR", "Failed to set item: ${e.message}", e)
-        }
+    fun removeItem(key: String, promise: Promise) {
+        secureStorage.removeItem(key)
+        promise.resolve(true)
     }
+
+    @ReactMethod
+    fun removeAll(promise: Promise) {
+        secureStorage.removeAll()
+        promise.resolve(true)
+    }
+
 }
