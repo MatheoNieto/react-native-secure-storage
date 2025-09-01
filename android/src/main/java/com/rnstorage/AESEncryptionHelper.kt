@@ -3,7 +3,6 @@ package com.rnstorage
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
-import android.util.Log
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -17,7 +16,6 @@ class AESEncryptionHelper {
         private const val CIPHER_TRANSFORMATION = "AES/GCM/NoPadding"
         private const val GCM_IV_LENGTH = 12
         private const val GCM_TAG_LENGTH = 16
-        private const val TAG = "AESEncryptionHelper"
 
         fun isEncryptionAvailable(): Boolean {
             return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
@@ -60,7 +58,6 @@ class AESEncryptionHelper {
             val iv = cipher.iv
             val encryptedData = cipher.doFinal(data.toByteArray(Charsets.UTF_8))
 
-            // Combine IV + encrypted data
             val combined = iv + encryptedData
             return Base64.encodeToString(combined, Base64.DEFAULT)
         }
@@ -69,7 +66,6 @@ class AESEncryptionHelper {
         fun decrypt(encryptedData: String, key: SecretKey): String {
             val combined = Base64.decode(encryptedData, Base64.DEFAULT)
             
-            // Extract IV and encrypted data
             val iv = combined.copyOfRange(0, GCM_IV_LENGTH)
             val cipherText = combined.copyOfRange(GCM_IV_LENGTH, combined.size)
 

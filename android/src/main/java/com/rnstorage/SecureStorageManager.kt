@@ -8,8 +8,8 @@ import org.json.JSONException
 import javax.crypto.SecretKey
 
 class SecureStorageManager(private val context: Context) {
-    private val secretKey: SecretKey?
-    private val isEncryptionAvailable: Boolean
+    private var secretKey: SecretKey? = null
+    private var isEncryptionAvailable: Boolean = false
     private val sharedPreferences: SharedPreferences
 
     companion object {
@@ -37,11 +37,10 @@ class SecureStorageManager(private val context: Context) {
         }
     }
 
-    @Throws(Exception::class)
     fun saveString(key: String, value: String) {
         if (isEncryptionAvailable && secretKey != null) {
             try {
-                val encryptedValue = AESEncryptionHelper.encrypt(value, secretKey)
+                val encryptedValue = AESEncryptionHelper.encrypt(value, secretKey!!)
                 sharedPreferences.edit().putString(key, encryptedValue).apply()
                 Log.d(TAG, "String saved with encryption for key: $key")
             } catch (e: Exception) {
@@ -49,19 +48,17 @@ class SecureStorageManager(private val context: Context) {
                 sharedPreferences.edit().putString(key, value).apply()
             }
         } else {
-            // Fallback: save unencrypted for Android < M
             sharedPreferences.edit().putString(key, value).apply()
             Log.d(TAG, "String saved without encryption for key: $key")
         }
     }
 
-    @Throws(Exception::class)
     fun loadString(key: String): String? {
         val storedValue = sharedPreferences.getString(key, null) ?: return null
 
         return if (isEncryptionAvailable && secretKey != null) {
             try {
-                AESEncryptionHelper.decrypt(storedValue, secretKey)
+                AESEncryptionHelper.decrypt(storedValue, secretKey!!)
             } catch (e: Exception) {
                 Log.w(TAG, "Decryption failed for key: $key, assuming unencrypted data")
                 storedValue
@@ -78,4 +75,5 @@ class SecureStorageManager(private val context: Context) {
     fun removeAll() {
         sharedPreferences.edit().clear().apply()
     }
+
 }
