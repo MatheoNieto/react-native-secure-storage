@@ -46,7 +46,11 @@ class SecureStorageModule: NSObject {
     resolve(true)
   }
   
-  @objc func removeAll(_ resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  @objc func removeAll(
+    resolver
+    resolve: RCTPromiseResolveBlock,
+    rejecter reject: RCTPromiseRejectBlock
+  ) {
     let domain = Bundle.main.bundleIdentifier!
     UserDefaults.standard.removePersistentDomain(forName: domain)
     resolve(true)

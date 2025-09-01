@@ -17,6 +17,14 @@
     "type": "git",
     "url": "git@github.com:MatheoNieto/react-native-secure-storage.git/issues"
   },
+  "keywords": [
+    "react-native",
+    "secure",
+    "storage",
+    "local storage",
+    "ios",
+    "android"
+  ],
   "author": "Mateo Nieto <matheo.developer@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
