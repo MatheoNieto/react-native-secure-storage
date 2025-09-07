@@ -20,12 +20,20 @@ For objects, simply use JSON.stringify before saving and JSON.parse when retriev
 
 ---
 
-## 📦 Installation
+## 📦 Installation for Different Environments:
+
+### Bare React Native:
 
 ```bash
 npm install storage-react-native
 # or
 yarn add storage-react-native
+```
+
+### Expo Managed (only when needed):
+
+```bash
+expo install storage-react-native expo-secure-store expo-constants crypto-js
 ```
 
 ## 🪝 Using the Hook

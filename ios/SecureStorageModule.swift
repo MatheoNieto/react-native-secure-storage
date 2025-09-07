@@ -20,7 +20,7 @@ class SecureStorageModule: NSObject {
       super.init()
     }
   
-  @objc func saveString(_ key: String, value: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  @objc func setItem(_ key: String, value: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     do {
       try secureStorage.saveString(value, forKey: key)
       print("String data saved securely for key: \(key)")
@@ -31,7 +31,7 @@ class SecureStorageModule: NSObject {
     }
   }
   
-  @objc func loadString(_ key: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  @objc func getItem(_ key: String, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     do {
       let value = try secureStorage.loadString(forKey: key)
       resolve(value)

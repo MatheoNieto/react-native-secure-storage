@@ -1,12 +1,18 @@
 import {StorageRepository} from '@domain/storageRepository';
-import {nativeStorage} from '../nativeStorageBridge';
+import {Storage} from '@infrastructure/Storage';
 
 export class StorageRepositoryImpl implements StorageRepository {
+  private storage: Storage;
+
+  constructor() {
+    this.storage = new Storage();
+  }
+
   async setItem(key: string, value: string) {
-    return await nativeStorage.setItem(key, value);
+    return await this.storage.setItem(key, value);
   }
   async getItem(key: string) {
-    const newValue = await nativeStorage.getItem(key);
+    const newValue = await this.storage.getItem(key);
     return newValue ?? null;
   }
 }
